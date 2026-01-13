@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            }
+            .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 40px;
+            
+            }
+
+            /* LOGO */
+            .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            }
+
+            .logo img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            }
+            .logo span {
+            font-family: 'Neonderthaw', cursive;
+            font-size: 28px;
+            margin-top: 6px;
+            color: #000;
+            }
+        /* CENTER AREA */
+            .center-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;   /* 🔥 important */
+            }
+
+            /* NAV */
+             .nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 45px;
+            padding-left: 40px;     /* move nav left */
+            padding-right: 220px;  /* reserve space for user icons */
+            }
+
+            .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 23px;
+            font-weight: 500;
+            }
+
+            /* SEARCH */
+            .search-box {
+            margin-top: 25px;   
+            width: 340px;
+            display: flex;
+            align-items: center;
+            border: 2px solid #f1c40f;
+            border-radius: 14px;
+            padding: 12px 18px;
+            align-self: flex-end;
+            margin-right: 330px;  
+        
+            } 
+            .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            }
+            .search-box input::placeholder {
+            color: black;   /* grey */
+            }
+           
+             .user-icons {
+            position: absolute;
+            top: 0;
+            right: 40px;
+            display: flex;              /* 🔥 SHOW ICONS */
+            align-items: center;
+            gap: 18px;
+            }
+
+            .user-icons i {
+            font-size: 24px;
+            cursor: pointer;
+            }
+
+            .logout-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+            cursor: pointer;
+            }
+
+            .logout-text:hover {
+            text-decoration: underline;
+            }
+            .profile-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #f1c40f;
+        }
+        /* PROFILE ICON DROPDOWN */
+            .profile-wrapper {
+                position: relative;
+                
+            }
+
+            .profile-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            /* Dropdown Box */
+            .profile-dropdown {
+                position: absolute;
+                top: 65px;
+                left: auto;
+                right: -90px;
+                
+                width: 340px;
+                background: #f4c414;
+                padding: 15px;
+                display: none;
+                z-index: 999;
+                border-radius: 10px;
+            }
+
+            /* Title */
+            .profile-dropdown h4 {
+                margin: 0 0 10px;
+                font-size: 22px;
+                font-weight: bold;
+            }
+
+            /* Divider */
+            .profile-dropdown h4::after {
+                content: "";
+                display: block;
+                border-bottom: 2px dotted #000;
+                margin-top: 8px;
+            }
+
+            /* List */
+            .profile-dropdown ul {
+                list-style: none;
+                padding: 0;
+                margin-top: 15px;
+            }
+
+            .profile-dropdown li {
+                background: #000;
+                color: #fff;
+                padding: 12px;
+                margin-bottom: 10px;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .profile-dropdown li:hover {
+                background: #222;
+            }
+            /* Overlay */
+            .notification-overlay {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                width: 100%;
+                z-index: 9999;
+                display: none;
+            }
+
+            /* Notification Box */
+            .notification-box {
+            background: #f4c914;
+            padding: 20px 30px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+            /* ✅ ADD THESE */
+            max-width: 900px;   /* control width */
+            margin: 0 auto;     /* center horizontally */
+            border-radius: 10px;
+        }
+
+            /* Close Button */
+            .close-btn {
+                position: absolute;
+                right: 20px;
+                top: 15px;
+                font-size: 22px;
+                cursor: pointer;
+            }
+
+            /* ENQUIRY */
+            .contact-section {
+                padding: 40px 0;
+            }
+
+            .contact-container {
+                max-width: 1200px;
+                margin: auto;
+                display: flex;
+            }
+
+            .contact-form {
+                background: #f5c400;
+                padding: 40px;
+                width: 50%;
+            }
+
+            .contact-form form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .row {
+                display: flex;
+                gap: 20px;
+            }
+
+            .field {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+
+            .field label {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 6px;
+            }
+
+            .field input,
+            .field textarea {
+                padding: 10px;
+                border-radius: 6px;
+                border: none;
+                outline: none;
+                font-size: 14px;
+            }
+
+            .field textarea {
+                height: 120px;
+                resize: none;
+            }
+
+            .field.full {
+                width: 100%;
+            }
+
+            .contact-image {
+                width: 50%;
+            }
+
+            .contact-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* FOOTER */
+            .footer {
+                background-color: #f5c813;
+                padding: 50px 60px 20px;
+            }
+
+            .footer-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+
+            .footer-logo img {
+                width: 160px;
+                border-radius: 50%;
+            }
+
+            .footer-logo h3 {
+                margin-top: 15px;
+                font-weight: 600;
+            }
+
+            .footer-col h4 {
+                font-size: 22px;
+                margin-bottom: 15px;
+                font-weight: 500;
+            }
+
+            .footer-col ul {
+                list-style: none;
+            }
+
+            .footer-col ul li {
+                margin-bottom: 12px;
+                font-size: 22px;
+                cursor: pointer;
+            }
+
+            .footer-col ul li:hover {
+                text-decoration: underline;
+            }
+
+            .contact p {
+                margin-bottom: 15px;
+                font-size: 16px;
+            }
+
+            .social-icons {
+                margin-top: 20px;
+            }
+
+            .social-icons i {
+                font-size: 22px;
+                background: #fff;
+                color: #000;
+                padding: 12px;
+                border-radius: 50%;
+                margin-right: 12px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                cursor: pointer;
+    }
+
+
+            .footer-bottom {
+                text-align: center;
+                margin-top: 40px;
+                font-size: 15px;
+            }
+            .footer-logo{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-logo span{
+            
+                font-family: 'Neonderthaw', cursive;
+                font-size: 28px;
+                margin-top: 6px;
+                color: #000;
+                
+
+            }
+</style>
+</head>
+<body>
+    <header class="header">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+    <span>VibeyGiftoy</span>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center-area">
+
+    <!-- NAV LINKS -->
+    <nav class="nav">
+      <a href="Homepage.html">Home</a>
+      <a href="Categories.html">Categories</a>
+      <a href="Gallery.html">Gallery</a>
+      <a href="Blogs.html">Blogs</a>
+      <a href="ContactUs.html">Contact us</a>
+      <a href="AboutUs.html">About us</a>
+    </nav>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+      <input type="text" placeholder="Search">
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <!-- USER ICONS -->
+    <div class="user-icons">
+
+      <div class="profile-wrapper">
+        <img src="Proficon.png" class="profile-icon" onclick="toggleProfileMenu()" />
+
+        <div class="profile-dropdown" id="profileDropdown">
+          <h4>My Account</h4>
+          <ul>
+            <li>Account Information</li>
+            <li>My Orders</li>
+            <li>Tracking Order</li>
+            <li>Password Manager</li>
+            <li onclick="logout()">Logout</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="Wishlist.html" class="wishlist-link">
+        <i class="fa-regular fa-heart"></i>
+        </a>
+      <a href="ShopNow.html" class="cart-link" aria-label="Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+      <i class="fa-regular fa-bell bell-icon" onclick="toggleNotification()"></i>
+    <span class="logout-text" onclick="logout()">Logout</span>
+
+    </div>
+
+  </div>
+
+  <div class="notification-overlay" id="notification">
+    <div class="notification-box">
+        <span class="close-btn" onclick="toggleNotification()">×</span>
+        <h4>🎁 Order/Delivery Notifications</h4>
+        <p>
+            We offer fast and reliable delivery to ensure your gifts arrive fresh,
+            on time, and beautifully packaged. Choose from standard, express,
+            or same-day delivery options at checkout.
+        </p>
+    </div>
+</div>
+
+</header>
+
+<!-- ENQUIRY -->
+ <section class="contact-section">
+    <div class="contact-container">
+
+        <!-- LEFT FORM -->
+        <div class="contact-form">
+            <form>
+                <div class="row">
+                    <div class="field">
+                        <label>First Name*</label>
+                        <input type="text" placeholder="Ex.John" id="firstName">
+                    </div>
+                    <div class="field">
+                        <label>Last Name*</label>
+                        <input type="text" placeholder="Ex.Doe" id="lastName">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label>E-mail*</label>
+                        <input type="email" placeholder="example@gmail.com" id="email">
+                    </div>
+                    <div class="field">
+                        <label>Phone*</label>
+                        <input type="text" placeholder="enter phone num" id="phone">
+                    </div>
+                </div>
+
+                <div class="field full">
+                    <label>Subject*</label>
+                    <input type="text" placeholder="Enter here" id="subject">
+                </div>
+
+                <div class="field full">
+                    <label>Your Message*</label>
+                    <textarea placeholder="Enter here" id="message"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="contact-image">
+            <img src="enquiry.png" alt="Support Team">
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+ <footer class="footer">
+    <div class="footer-container">
+
+        <!-- Logo Section -->
+        <div class="footer-logo">
+            <img src="logo.png" alt="VibeyGiftey">
+            <span>VibeyGiftoy</span>
+        </div>
+
+        <!-- Customer Service -->
+        <div class="footer-col">
+            <h4>Customer service</h4>
+            <ul>
+                <li>My Account</li>
+                <li>Checkup</li>
+                <li>FAQ</li>
+                <li>Return</li>
+            </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <li>About us</li>
+                <li>Blogs</li>
+                <li>Contact us</li>
+                <li>Career</li>
+            </ul>
+        </div>
+
+        <!-- Information -->
+        <div class="footer-col">
+            <h4>Our information</h4>
+            <ul>
+                <li>Privacy</li>
+                <li>Terms & Condition</li>
+                <li>Customer Feed back</li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col contact">
+            <p><strong>Mobile:</strong> 123-456-789</p>
+            <p><strong>Email:</strong> Vibeygift@gmail.com</p>
+            <p><strong>Address:</strong> 12, north city–001</p>
+
+            <div class="social-icons">
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        </div>
+    </div>
+
+   <!-- Bottom Footer -->
+    <div class="footer-bottom">
+        <p>© 2025 Giftey.co. All rights reserved.</p>
+        <p><strong>Terms & Conditions | Privacy Policy</strong></p>
+    </div>
+</footer>
+<script>
+    function toggleProfileMenu() {
+  const menu = document.getElementById("profileDropdown");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function (e) {
+  const profile = document.querySelector(".profile-wrapper");
+  if (!profile.contains(e.target)) {
+    document.getElementById("profileDropdown").style.display = "none";
+  }
+});
+function toggleNotification() {
+    const box = document.getElementById("notification");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
+const autoFillData = {
+        firstName: "Amjath",
+        lastName: "Althaf",
+        email: "amjaann@gmail.com",
+        phone: "7867980688",
+        subject: "Product Status",
+        message: "hi team status of my product pls check"
+    };
+
+    Object.keys(autoFillData).forEach(id => {
+        const field = document.getElementById(id);
+
+        field.addEventListener("focus", function () {
+            if (this.value === "") {
+                this.value = autoFillData[id];
+            }
+        });
+    });
+</script>
+</body>
+</html>
